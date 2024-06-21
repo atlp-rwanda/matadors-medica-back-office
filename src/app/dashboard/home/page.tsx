@@ -5,6 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ForumIcon from '@mui/icons-material/Forum';
 import GlobalSearch from '@/app/components/search';
+import Card from '@/app/components/cards';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -56,23 +57,10 @@ const Home = () => {
           <h2 className="text-3xl mt-2 text-black">Dr. Drake Boeson</h2>
         </div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols gap-6 mb-10 text-black">
-          <div className="bg-[#246BFD] flex justify-center items-center gap-5 text-white p-5 shadow rounded-lg">
-            <div className='p-3 rounded-full'>
-              <ForumIcon className='text-white text-4xl' />
-            </div>
-            <div>
-              <h3 className="text-4xl font-semibold flex flex-col text-center">30 <span className='font-light text-xl'>Messages</span></h3>
-            </div>
-          </div>
-          <div className="bg-[#246BFD] flex justify-center items-center gap-5 text-white p-5 shadow rounded-lg">
-            <VideocamIcon className='text-white text-4xl' />
-            <h3 className="text-4xl font-semibold flex flex-col text-center">46<span className='font-light text-xl'>Voice Call</span></h3>
-          </div>
-          <div className="bg-[#246BFD] flex justify-center items-center gap-5 text-white p-5 shadow rounded-lg">
-            <VideocamIcon className='text-white text-4xl' />
-            <h3 className="text-4xl font-semibold flex flex-col text-center">22<span className='font-light text-xl'> Video Call</span></h3>
-            <h3 className="text-xl font-semibold"></h3>
-          </div>
+          <Card name='Message' countx="30" icon={<ForumIcon className='text-white text-4xl' />} className="bg-[#246BFD] flex justify-center flex-col items-center gap-5 text-white p-5 shadow rounded-lg"/>
+          <Card name='Voice Call' countx="20"  icon={<VideocamIcon className='text-white text-4xl' />} className="bg-[#246BFD] flex justify-center items-center gap-5 text-white p-5 shadow rounded-lg"  />
+          <Card name='Video Call' countx="10"  icon={<VideocamIcon className='text-white text-4xl' />} className="bg-[#246BFD] flex justify-center items-center gap-5 text-white p-5 shadow rounded-lg" />
+        
         </div>
         <div className="grid lg:grid-cols-2 md:grid-cols gap-6 text-black">
           <div>
