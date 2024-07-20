@@ -16,7 +16,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
   const [greeting, setGreeting] = useState("");
-  const[streamConnected, setStreamConnected] = useState(false);
+  const[streamConnected, setStreamConnected] = useState<boolean>(false);
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
