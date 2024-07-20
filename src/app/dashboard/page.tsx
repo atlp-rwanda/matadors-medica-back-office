@@ -9,15 +9,57 @@ import Search from "../components/search";
 import { Logout } from "@/app/auth/action";
 import { useAuth } from "../../../ctx/AuthContext";
 import Image from "next/image";
+import { StreamClient } from "../utils/StreamChat/StreamClient";
+import { fetchDoctorData } from "../utils/LoggedInUser";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
   const [greeting, setGreeting] = useState("");
+  const[streamConnected, setStreamConnected] = useState(false);
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
+  const [doctorData, setDoctorData] = useState<any>();
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (user && user?.id) {
+      fetchDoctorData(user?.id, setDoctorData);
+      // getUserImageUrl("patients", userId , setImageUrl);
+    }
+  }, [user]);
+
+
+  useEffect(() => {
+    const connectUserToStream = async () => {
+      setStreamConnected(false);
+      try {
+        if (doctorData && Array.isArray(doctorData)) {
+          const doctor = {
+            id: doctorData[0]?.id,
+            name: doctorData[0]?.first_name + " " + doctorData[0]?.last_name
+            ,
+            image: "https://i.imgur.com/fR9Jz14.png",
+          };
+
+          await StreamClient.connectUser(
+            doctor,
+            StreamClient.devToken(doctor?.id)
+          );
+          setStreamConnected(true);
+        } else {
+          setStreamConnected(false);
+        }
+      } catch (error) {
+        setStreamConnected(false);
+        console.log("error while connecting user", error);
+      }
+    };
+    if (!StreamClient.userID) {
+      connectUserToStream();
+    }
+  }, [doctorData, user]);
 
   useEffect(() => {
     const updateGreeting = () => {
