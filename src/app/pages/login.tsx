@@ -2,8 +2,8 @@ import Image from 'next/image';
 import React from 'react';
 import { FaApple, FaFacebook, FaGoogle } from 'react-icons/fa';
 import Logo from '../assets/images/log.png'
+import Navbar from '../components/navbar';
 
-import Navbar from '../../components/navbar';
 
 export default function Login() {
   return (
@@ -13,7 +13,7 @@ export default function Login() {
  
     <div className=" flex items-center justify-center ">
        
-      <div className=" w-full space-y-8 flex justify-center p-7 gap-6  w-full">
+      <div className=" w-full space-y-8 flex justify-center p-7 gap-6 ">
         <div className="text-center w-[50%]">
         <Image src={Logo} alt='logo'/>
          

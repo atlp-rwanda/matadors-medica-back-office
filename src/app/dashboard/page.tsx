@@ -11,6 +11,8 @@ import { useAuth } from "../../../ctx/AuthContext";
 import Image from "next/image";
 import { StreamClient } from "../utils/StreamChat/StreamClient";
 import { fetchDoctorData } from "../utils/LoggedInUser";
+import { DoctorsType } from "../constants/type";
+import Link from "next/link";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -20,7 +22,7 @@ const Home = () => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
-  const [doctorData, setDoctorData] = useState<any>();
+  const [doctorData, setDoctorData] = useState<DoctorsType[]>([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -29,7 +31,6 @@ const Home = () => {
       // getUserImageUrl("patients", userId , setImageUrl);
     }
   }, [user]);
-
 
   useEffect(() => {
     const connectUserToStream = async () => {
@@ -187,9 +188,10 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-4">
                 Today&aposs Appointment
               </h3>
-              <h3 className="text-xl font-semibold mb-4 text-[#5089FD]">
-                See All
-              </h3>
+              <Link 
+               className="text-xl font-semibold mb-4 text-[#5089FD]"
+              href="/dashboard/appointment">See all</Link>
+
             </div>
             {["Annabel Rohan", "Geoffrey Mott"].map((name, index) => (
               <div
@@ -197,7 +199,7 @@ const Home = () => {
                 className="py-3 border-b flex items-center justify-between"
               >
                 <div className="flex gap-4">
-                  <img
+                  <Image
                     src={menu[index % menu.length].image}
                     alt="gr"
                     className="w-[45px] h-[45px] rounded-full"
@@ -230,7 +232,7 @@ const Home = () => {
                 className="py-3 border-b flex items-center justify-between"
               >
                 <div className="flex gap-4">
-                  <img
+                  <Image
                     src={menu[index % menu.length].image}
                     alt="gr"
                     className="w-[45px] h-[45px] rounded-full"
@@ -264,7 +266,7 @@ const Home = () => {
             ).map((appointment, index) => (
               <div key={index} className="py-3 border-b flex justify-between">
                 <div className="flex gap-4">
-                  <img
+                  <Image
                     src={appointment.image}
                     alt="gr"
                     className="w-[45px] h-[45px] rounded-full"

@@ -19,7 +19,9 @@ import Input from "@/app/components/Input";
 // import Button from "@/app/components/Button";
 import { useAuth } from "../../../../ctx/AuthContext";
 import { useRouter } from "next/navigation";
-import Button from "@/app/components/button";
+import Button from "@/app/components/Button";
+// import Button from "@/app/components/button";
+
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
