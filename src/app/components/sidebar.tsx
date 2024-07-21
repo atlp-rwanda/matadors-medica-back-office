@@ -22,10 +22,8 @@ const Sidebar: React.FC = () => {
 
     return (
         <>
-       
                 <MenuIcon className="md:hidden fixed top-5 text-4xl left-5 z-50 bg-gray-700 p-2 rounded"   onClick={() => setIsSidebarOpen(true)}/>
             
-           
             <aside className={`fixed top-0 left-0 w-72 bg-gray-100  h-screen p-5 z-40 transform transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                 <div className="text-center mb-10">
                     <div className="flex items-center pb-5">
