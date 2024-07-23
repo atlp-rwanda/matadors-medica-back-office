@@ -8,6 +8,9 @@ export type Data = {
   status: string;
   package: string;
   time: string;
+  gender: string;
+  age: number;
+  // illness_decr: string;
 };
 
 
@@ -15,6 +18,13 @@ export type Data = {
 //   const date = new Date(dateTime);
 //   return date.toISOString().split('T')[0];
 // };
+export const fetchAppointmentDetail = async (appointmentId: string): Promise<Data> => {
+  const response = await fetch(`/api/appointments/${appointmentId}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch appointment details');
+  }
+  return response.json();
+};
 
 export const fetchData = async (doctorId: string): Promise<Data[]> => {
   const { data, error } = await supabase
@@ -28,10 +38,13 @@ export const fetchData = async (doctorId: string): Promise<Data[]> => {
       patients (
         first_name,
         last_name,
-        image
+        image,
+        age,
+        gender
       )
     `)
-    .eq('doctor_id', doctorId);
+    .eq('doctor_id', doctorId)
+    .eq('status', 'Upcoming');
 
   if (error) {
     console.error("Error fetching data:", error.message);
@@ -51,6 +64,9 @@ export const fetchData = async (doctorId: string): Promise<Data[]> => {
     time: appointment.time,
     package: appointment.package,
     status: appointment.status,
+    gender: appointment.patients.gender,
+    age: appointment.patients.age,
+    // illness_decr: appointment.illness_decr
   }));
   return items;
 };

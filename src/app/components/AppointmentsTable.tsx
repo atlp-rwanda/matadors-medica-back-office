@@ -1,7 +1,7 @@
-// components/AppointmentsTable.tsx
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation'
 import { fetchData, Data } from '../lib/fetchData';
 
 interface AppointmentsTableProps {
@@ -31,6 +31,10 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({ doctorId }) => {
     return <p>Loading...</p>;
   }
 
+  const handleRowClick = (id: string) => {
+    redirect(`/dashboard/appointment?id=${id}`);
+  };
+
   const getStatusStyle = (status: string) => {
     switch (status) {
       case 'Cancelled':
@@ -58,7 +62,10 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({ doctorId }) => {
       </thead>
       <tbody>
         {appointments.map((appointment) => (
-          <tr key={appointment.id}>
+          <tr key={appointment.id}
+          onClick={() => handleRowClick(appointment.id)} 
+          style={{ cursor: 'pointer' }}
+          >
             <td style={{ paddingRight: '2rem' }}><img src={appointment.image} alt={appointment.name} width={70} height={70} /></td>
             <td style={{ paddingRight: '2rem' }}>{appointment.name}</td>
             <td style={{ paddingRight: '2rem' }}>{appointment.date}</td>
